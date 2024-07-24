@@ -173,6 +173,25 @@ func videoSingle(tweet *twitterscraper.Tweet, output string) {
 	}
 }
 
+func saveTweetHTML(tweet *twitterscraper.TweetResult, output string) {
+
+	name := tweet.ID + ".txt"
+	if format != "" {
+		name = getFormat(tweet) + "_" + name
+	}
+	file, err := os.Create(output + "/text/" + name)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer file.Close()
+	_, err = file.WriteString(tweet.HTML)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+}
+
 func photoSingle(tweet *twitterscraper.Tweet, output string) {
 	if tweet == nil {
 		return
@@ -517,6 +536,9 @@ func main() {
 	if imgs {
 		os.MkdirAll(output+"/img", os.ModePerm)
 	}
+
+	os.MkdirAll(output+"/text", os.ModePerm)
+
 	nbrs, _ := strconv.Atoi(nbr)
 	wg := sync.WaitGroup{}
 	for tweet := range scraper.GetTweets(context.Background(), usr, nbrs) {
@@ -524,6 +546,7 @@ func main() {
 			fmt.Println(tweet.Error)
 			os.Exit(1)
 		}
+		go saveTweetHTML(tweet, output)
 		if vidz {
 			wg.Add(1)
 			go videoUser(&wg, tweet, output, retweet)
