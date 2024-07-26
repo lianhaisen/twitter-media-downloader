@@ -175,7 +175,7 @@ func videoSingle(tweet *twitterscraper.Tweet, output string) {
 
 func saveTweetHTML(tweet *twitterscraper.TweetResult, output string) {
 
-	name := tweet.ID + ".txt"
+	name := tweet.ID + ".html"
 	if format != "" {
 		name = getFormat(tweet) + "_" + name
 	}
