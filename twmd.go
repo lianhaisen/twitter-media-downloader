@@ -179,17 +179,20 @@ func saveTweetHTML(tweet *twitterscraper.TweetResult, output string) {
 	if format != "" {
 		name = getFormat(tweet) + "_" + name
 	}
-	file, err := os.Create(output + "/text/" + name)
-	if err != nil {
-		fmt.Println(err)
-		return
+	if len(tweet.HTML) > 0 {
+		file, err := os.Create(output + "/text/" + name)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		defer file.Close()
+		_, err = file.WriteString(tweet.HTML)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 	}
-	defer file.Close()
-	_, err = file.WriteString(tweet.HTML)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+
 }
 
 func photoSingle(tweet *twitterscraper.Tweet, output string) {
