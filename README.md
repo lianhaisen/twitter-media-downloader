@@ -1,11 +1,11 @@
-# twmd: CLI & GUI twitter media downloader (without api key)
+# twmd: CLI twitter media downloader (without api key)
 
 This twitter downloader doesn't require Credentials or an api key. It's based on [twitter-scrapper](https://github.com/imperatrona/twitter-scraper).
 
 Unfortunately, you will not be able to download more than 3200 tweets.
 
 ![gui](.github/screenshots/gui.png)
-
+**Note:** Gui is not longer maintained.
 
 ## usage: 
 
@@ -21,6 +21,7 @@ Usage:
 -r, --retweet                Download retweet too
 -z, --url                    Print media url without download it
 -R, --retweet-only           Donwload only retweet
+-M, --mediatweet-only        Donwload only media tweet
 -s, --size     SIZE          Choose format between small|normal|large
                              (default large)
 -U, --update                 Download missing tweet only
@@ -32,6 +33,7 @@ Usage:
 -p, --proxy    PROXY         Use proxy (proto://ip:port)
 -V, --version                Print version and exit
 -B, --[no-]banner            Don't print banner
+-C, --cookies                Use cookies for authentication
 ```
 
 ### Examples:
@@ -59,7 +61,7 @@ twmd -t 156170319961391104
 
 #### NSFW tweets
 
-You'll need to login `-L|--login` for downloading nsfw tweets.
+You'll need to login `-L|--login` for downloading nsfw tweets. Or you can provide cookies `-C|--cookies` to complete the login.
 
 
 #### Using proxy
@@ -89,7 +91,7 @@ sudo make all
 sudo make clean
 ```
 
-#### Gui:
+#### Gui (outdated):
 
 ```sh
 git clone https://github.com/mmpx12/twitter-media-downloader.git
